@@ -81,4 +81,4 @@ class MarkovText(object):
             result.append(current_term)
 
             # Return the terms with spaces in between them.
-            return ' '.join(result)
+        return ' '.join(result)
