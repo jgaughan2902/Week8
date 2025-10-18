@@ -41,6 +41,17 @@ class MarkovText(object):
 
 
     def generate(self, seed_term=None, term_count = 15):
+        '''
+        Generate sentences using the Markov property.
+
+        Parameters:
+        seed_term (str): An optional term from the corpus
+        term_count (int): The number of terms you want generated
+
+        Return value:
+        ' '.join(result) (str): A sentence constructed using terms
+        and spaces inserted in between them.
+        '''
         if self.term_dict is None:
             self.get_term_dict()
         
