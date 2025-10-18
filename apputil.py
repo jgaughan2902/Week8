@@ -40,4 +40,34 @@ class MarkovText(object):
         return self.term_dict
 
 
-    def generate(self):
+    def generate(self, seed_term=None, term_count = 15):
+        if self.term_dict is None:
+            self.get_term_dict()
+        
+        # Choose a random seed_term from the dictionary
+        # keys if one is not provided in the input.
+        if seed_term is None:
+            seed_term = np.random.choice(list(self.term_dict.keys()))
+        elif seed_term not in self.term_dict:
+            raise ValueError(f"Seed term '{seed_term}' not found in corpus")
+    
+    # Initialize the results.
+    result = [seed_term]
+    current_term = seed_term
+
+    # Produce the rest of the terms.
+    for i in range(term_count - 1):
+
+        # If the current term doesn't have words after it or isn't
+        # in the dictionary, then choose a random term from the
+        # dictionary keys.
+        if current_term not in self.term_dict or not self.term_dict[current_term]:
+            current_term = np.random.choice(list(self.term_dict.keys()))
+        else:
+            # Choose the next term randomly from the list of
+            # potential next terms.
+            current_term = np.random.choice(self.term_dict[current_term])
+        result.append(current_term)
+
+        # Return the terms with spaces in between them.
+        return ' '.join(result)
